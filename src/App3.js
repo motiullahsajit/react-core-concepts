@@ -1,18 +1,23 @@
+import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const nayoks = ['Razzak', 'Salman', 'Sakib', 'Shuvo', 'Sajit', 'Moti']
+  const nayoks = ['Razzak', 'Salman', 'Sakib', 'Shuvo', 'Sajit']
+  const nayokNames = nayoks.map(nayok => nayok)
+  // console.log(nayokNames);
   const products = [
     { name: 'Photoshop', price: '$90.99' },
     { name: 'Illustrator', price: '$60.99' },
     { name: 'PDF Reader', price: '$6.99' },
     { name: 'Premiere El', price: '$249.99' }
   ]
+  // const productNames = products.map(product => product.name)
+  // console.log(productNames);
   return (
     <div className="App">
       <header className="App-header">
-        <p style={{ color: 'red' }}>Now I am a react Person</p>
+        <p>Now I am a react Person</p>
         <Counter></Counter>
         <Users></Users>
         <ul style={{ listStyle: 'none', color: 'red' }}>
@@ -22,10 +27,18 @@ function App() {
           {
             products.map(product => <li>{product.name}</li>)
           }
+          {/* <li>{nayoks[0]}</li>
+          <li>{nayoks[1]}</li>
+          <li>{nayoks[2]}</li>
+          <li>{nayoks[3]}</li> */}
         </ul>
+        {/* <Product name={products[0].name} price={products[0].price}></Product> */}
         {
           products.map(pd => <Product product={pd}></Product>)
         }
+        {/* <Product product={products[0]}></Product>
+        <Product product={products[1]}></Product>
+        <Product product={products[2]}></Product> */}
         <Person name="MOti" job="football"></Person>
         <Person name="Masum" job="Dorshok"></Person>
         <Person></Person>
@@ -34,7 +47,6 @@ function App() {
   );
 }
 
-//to show user 
 function Users() {
   const [user, setUsers] = useState([]);
   useEffect(() => {
@@ -44,7 +56,12 @@ function Users() {
       setUsers(data);
     }
     loadData();
+    // fetch('https://jsonplaceholder.typicode.com/users')
+    //   .then(res => res.json())
+    //   .then(data => setUsers(data));
+    // console.log('calling effect')
   }, [])
+
   return (
     <div>
       <h3>Dynamic Users: {user.length}</h3>
@@ -57,20 +74,28 @@ function Users() {
   )
 }
 
-// counet increase , decrease
+
 function Counter() {
   const [count, setCount] = useState(0);
+  // const handledecrease = () => {
+  //   if (count > 0) {
+  //     const newCount = count - 1;
+  //     setCount(newCount)
+  //   }
+  // };
+  // const handleIncrease = () => setCount(count + 1);
   return (
     <div>
       <h1>Count: {count}</h1>
       <button onMouseMove={() => setCount(count + 1)}> Increse</button>
       <br />
+      {/* <button onClick={handledecrease}>Decrese</button> */}
       <button onClick={() => count > 0 && setCount(count - 1)}>Decrese</button>
     </div>
   )
 }
 
-//showing product
+
 function Product(props) {
   const productStyle = {
     border: '1px solid gray',
@@ -78,8 +103,13 @@ function Product(props) {
     backgroundColor: 'lightgray',
     height: '250px',
     width: '250px',
+    // float: 'left'
   }
+  // console.log(props)
+  //desturing object
   const { name, price } = props.product;
+  // console.log(name, price);
+
   return (
     <div style={productStyle}>
       <h3>{name}</h3>
@@ -89,7 +119,6 @@ function Product(props) {
   )
 }
 
-//show person manually
 function Person(props) {
   return (
     <div style={{ border: '2px solid gold', width: '400px', margin: '10px' }}>
